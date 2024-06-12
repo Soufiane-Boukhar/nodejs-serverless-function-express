@@ -23,6 +23,10 @@ db.connect(err => {
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
   try {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
     const { nom_complete, tel, email, sujet, message } = req.body;
 
     if (!nom_complete || !tel || !email || !sujet || !message) {
@@ -41,11 +45,6 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
       console.log('Data inserted successfully into contacts table.');
       res.status(200).send('Data inserted successfully into contacts table.');
     });
-
-    // Set CORS headers to allow requests from any origin
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   } catch (error) {
     console.error('Error in handler:', error);
     res.status(500).send('Internal Server Error');
