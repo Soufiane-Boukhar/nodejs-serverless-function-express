@@ -38,7 +38,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).send('One or more required fields are null.');
     }
 
-    const sqlInsert = 'INSERT INTO services (nom, prenom, email, telephone, type_de_bien, adresse, budget, demande, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const sqlInsert = 'INSERT INTO services (nom, prenom, email, telephone, type_de_bien, addresse, budget, demande, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
     db.query(sqlInsert, [nom, prenom, email, tel, type_de_bien, adresse, budget, message, type], (err, result) => {
       if (err) {
