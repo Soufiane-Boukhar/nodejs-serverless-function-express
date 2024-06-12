@@ -31,16 +31,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   if (req.method === 'POST') {
-    const { nom, 
-    prenom, 
-    email, 
-    tel, 
-    type_de_bien, 
-    superficie, 
-    adresse, 
-    budget, 
-    message, 
-    type } = req.body;
+    const { nom, prenom, email, tel, type_de_bien, superficie, adresse, budget, message, type } = req.body;
 
     if (!nom || !tel || !email || !prenom || !message || !type_de_bien || !superficie || !adresse || !budget || !type ) {
       console.error('One or more required fields are null.');
@@ -51,12 +42,12 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
 
     db.query(sqlInsert, [nom, prenom, email, tel, type_de_bien, adresse, budget, message, type], (err, result) => {
       if (err) {
-        console.error('Error inserting data into contacts table:', err);
-        return res.status(500).send('An error occurred while inserting data into contacts table.');
+        console.error('Error inserting data into services table:', err);
+        return res.status(500).send('An error occurred while inserting data into services table.');
       }
 
-      console.log('Data inserted successfully into contacts table.');
-      res.status(200).send('Data inserted successfully into contacts table.');
+      console.log('Data inserted successfully into services table.');
+      res.status(200).send('Data inserted successfully into services table.');
     });
   } else {
     res.setHeader('Content-Type', 'application/json');
