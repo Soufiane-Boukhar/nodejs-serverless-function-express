@@ -22,15 +22,11 @@ db.connect(err => {
 });
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  try {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  if (req.method === 'POST') {
     const { nom_complete, tel, email, sujet, message } = req.body;
 
     if (!nom_complete || !tel || !email || !sujet || !message) {
@@ -49,8 +45,8 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
       console.log('Data inserted successfully into contacts table.');
       res.status(200).send('Data inserted successfully into contacts table.');
     });
-  } else {
-    res.setHeader('Content-Type', 'application/json');
-    res.status(405).json({ error: 'Method Not Allowed' });
+  } catch (error) {
+    console.error('Error in handler:', error);
+    res.status(500).send('Internal Server Error');
   }
 }
