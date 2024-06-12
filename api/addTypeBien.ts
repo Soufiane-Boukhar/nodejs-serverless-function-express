@@ -43,7 +43,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     db.query(sqlInsert, [nom, prenom, email, tel, type_de_bien, adresse, budget, message, type], (err, result) => {
       if (err) {
         console.error('Error inserting data into services table:', err);
-        return res.status(500).send('An error occurred while inserting data into services table.');
+        return res.status(500).send(`An error occurred while inserting data into services table: ${err.message}`); // Return detailed error message
       }
 
       console.log('Data inserted successfully into services table.');
