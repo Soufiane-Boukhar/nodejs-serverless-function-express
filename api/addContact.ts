@@ -42,7 +42,8 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     res.status(200).send('Data inserted successfully into contacts table.');
   });
 
-  res.setHeader('Access-Control-Allow-Origin', 'https://capalliance-ma-client.vercel.app');
+  // Set CORS headers to allow requests from any origin
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
