@@ -31,6 +31,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).end();
   }
 
+  if (req.method === 'GET') {
     const sqlSelect = 'SELECT * FROM contacts';
 
     db.query(sqlSelect, (err, results) => {
@@ -43,4 +44,8 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
       res.setHeader('Content-Type', 'application/json');
       res.status(200).json({ contacts: results });
     });
+  } else {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(405).json({ error: 'Method Not Allowed' });
+  }
 }
