@@ -23,15 +23,19 @@ db.connect(err => {
 });
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  console.log('Request received:', req.method);
+
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
+    console.log('Handling OPTIONS request');
     return res.status(200).end();
   }
 
-  if (req.method === 'POST') {
+  if (req.method === 'GET') {
+    console.log('Handling GET request');
     const sqlSelect = 'SELECT * FROM contacts';
 
     db.query(sqlSelect, async (err, results) => {
@@ -40,6 +44,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         res.status(500).json({ error: 'Database query error' });
         return;
       }
+
+      console.log('Query results:', results);
 
       const workbook = new ExcelJS.Workbook();
       const worksheet = workbook.addWorksheet('Contacts');
@@ -62,6 +68,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       res.status(200).send(buffer);
     });
   } else {
+    console.log('Handling invalid method:', req.method);
     res.setHeader('Content-Type', 'application/json');
     res.status(405).json({ error: 'Method Not Allowed' });
   }
