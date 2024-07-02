@@ -35,15 +35,15 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     const sqlSelect = 'SELECT * FROM contacts';
 
     db.query(sqlSelect, (err, results) => {
-      if (err) {
-        console.error('Error executing query:', err);
-        res.status(500).json({ error: 'Database query error' });
-        return;
-      }
-
-      res.setHeader('Content-Type', 'application/json');
-      res.status(200).json({ contacts: results });
-    });
+        if (err) {
+          console.error('Error executing query:', err);
+          res.status(500).json({ error: 'Database query error', details: err.message });
+          return;
+        }
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json({ contacts: results });
+      });
+      
   } else {
     res.setHeader('Content-Type', 'application/json');
     res.status(405).json({ error: 'Method Not Allowed' });
