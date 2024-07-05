@@ -21,7 +21,7 @@ db.connect(err => {
   console.log('MySQL connected...');
 });
 
-export default function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -41,15 +41,23 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
 
     const values = [ville, quartier, address, type_bien, n_foncier, S_totale, S_habitable, chambres, sallesDeBains, etageAppartement, nom, prenom, telephone, email];
 
-    db.query(sqlInsert, values, (err, result) => {
-      if (err) {
-        console.error('Error inserting data into property table:', err);
-        return res.status(500).json({ error: `An error occurred while inserting data into property table: ${err.message}` });
-      }
+    try {
+      await new Promise((resolve, reject) => {
+        db.query(sqlInsert, values, (err, result) => {
+          if (err) {
+            console.error('Error inserting data into property table:', err);
+            reject(err);
+          } else {
+            console.log('Data inserted successfully into property table.');
+            resolve(result);
+          }
+        });
+      });
 
-      console.log('Data inserted successfully into property table.');
       res.status(200).json({ message: 'Data inserted successfully into property table.' });
-    });
+    } catch (error) {
+      res.status(500).json({ error: `An error occurred while inserting data into property table: ${error.message}` });
+    }
   } else {
     res.setHeader('Content-Type', 'application/json');
     res.status(405).json({ error: 'Method Not Allowed' });
