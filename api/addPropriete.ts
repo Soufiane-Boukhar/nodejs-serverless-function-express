@@ -40,7 +40,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     db.query(sqlInsert, values, (err, result) => {
       if (err) {
         console.error('Error inserting data into property table:', err);
-        return res.status(500).send('An error occurred while inserting data into property table.');
+        return res.status(500).json({ error: `An error occurred while inserting data into property table: ${err.message}` });
       }
 
       console.log('Data inserted successfully into property table.');
