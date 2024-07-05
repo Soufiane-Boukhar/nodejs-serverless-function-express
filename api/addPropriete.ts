@@ -33,8 +33,12 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'POST') {
     const { address, ville, quartier, type_bien, n_foncier, S_totale, S_habitable, chambres, sallesDeBains, etageAppartement, nom, prenom, telephone, email } = req.body;
 
-    const sqlInsert = 'INSERT INTO property (ville, quartier, adresse, type_bien, n_foncier, S_totale, S_habitable, chambres, sallesDeBains, etageAppartement, nom, prenom, telephone, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    if (!address || !ville || !quartier || !type_bien || !n_foncier || !S_totale || !S_habitable || !chambres || !sallesDeBains || !etageAppartement || !nom || !prenom || !telephone || !email) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
 
+    const sqlInsert = 'INSERT INTO property (ville, quartier, adresse, type_bien, n_foncier, S_totale, S_habitable, chambres, sallesDeBains, etageAppartement, nom, prenom, telephone, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    
     const values = [ville, quartier, address.adresse, type_bien, n_foncier, S_totale, S_habitable, chambres, sallesDeBains, etageAppartement, nom, prenom, telephone, email];
 
     db.query(sqlInsert, values, (err, result) => {
