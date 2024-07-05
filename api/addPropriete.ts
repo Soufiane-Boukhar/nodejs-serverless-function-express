@@ -33,7 +33,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'POST') {
     const { address, ville, quartier, type_bien, n_foncier, S_totale, S_habitable, chambres, sallesDeBains, etageAppartement, nom, prenom, telephone, email } = req.body;
 
-    if (!address || !ville || !quartier || !type_bien || !n_foncier || !S_totale || !S_habitable || !chambres || !sallesDeBains || !etageAppartement || !nom || !prenom || !telephone || !email) {
+    if (!address || !ville || !quartier || !type_bien || !n_foncier || !S_totale || !S_habitable || !nom || !prenom || !telephone || !email) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
