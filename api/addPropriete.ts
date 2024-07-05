@@ -39,7 +39,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
 
     const sqlInsert = 'INSERT INTO property (ville, quartier, adresse, type_bien, n_foncier, S_totale, S_habitable, chambres, sallesDeBains, etageAppartement, nom, prenom, telephone, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
-    const values = [ville, quartier, address.adresse, type_bien, n_foncier, S_totale, S_habitable, chambres, sallesDeBains, etageAppartement, nom, prenom, telephone, email];
+    const values = [ville, quartier, address, type_bien, n_foncier, S_totale, S_habitable, chambres, sallesDeBains, etageAppartement, nom, prenom, telephone, email];
 
     db.query(sqlInsert, values, (err, result) => {
       if (err) {
