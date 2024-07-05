@@ -10,13 +10,13 @@ const db = mysql.createConnection({
   ssl: {
     rejectUnauthorized: false
   },
-  connectTimeout: 10000 
+  connectTimeout: 80000 
 });
 
 db.connect(err => {
   if (err) {
     console.error('Error connecting to MySQL:', err);
-    throw err; // Throw error to terminate function execution on connection failure
+    throw err;
   }
   console.log('MySQL connected...');
 });
