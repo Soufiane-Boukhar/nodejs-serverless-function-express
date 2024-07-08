@@ -43,7 +43,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       ville, quartier, address, type_bien,
       n_foncier || null, S_totale || null, S_habitable || null, chambres || null, sallesDeBains || null, etageAppartement || null,
       nom, prenom, telephone, email, etatBien || null, periodeConstruction || null
-    ];
+    ];    
 
     try {
       await new Promise((resolve, reject) => {
