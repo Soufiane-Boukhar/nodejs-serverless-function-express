@@ -39,7 +39,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const sqlInsert = 'INSERT INTO property (ville, quartier, adresse, type_bien, n_foncier, S_totale, S_habitable, chambres, sallesDeBains, etageAppartement, nom, prenom, telephone, email, etatBien, periodeConstruction) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
-    const values = [ville, quartier, address, type_bien, n_foncier, S_totale, S_habitable, chambres, sallesDeBains, etageAppartement, nom, prenom, telephone, email, etatBien, periodeConstruction];
+    const values = [ville, quartier, address, type_bien, n_foncier || null, S_totale || null, S_habitable || null, chambres || null, sallesDeBains || null, etageAppartement || null, nom, prenom, telephone, email, etatBien || null, periodeConstruction || null];
 
     try {
       await new Promise((resolve, reject) => {
