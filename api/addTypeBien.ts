@@ -2,11 +2,11 @@ import { VercelRequest, VercelResponse } from '@vercel/node';
 import mysql from 'mysql';
 
 const db = mysql.createConnection({
-  host: 'mysql-1fb82b3b-boukhar-d756.e.aivencloud.com',
-  port: 20744,
-  user: 'avnadmin',
-  password: 'AVNS_wWoRjEZRmFF5NgjGCcY',
-  database: 'defaultdb',
+  host: '',
+  port: ,
+  user: '',
+  password: '',
+  database: '',
   ssl: {
     rejectUnauthorized: false
   },
